@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.*;
@@ -54,6 +55,8 @@ public class JobScheduleHelper {
                 // pre-read count: treadpool-size * trigger-qps (each trigger cost 50ms, qps = 1000/50 = 20)
                 int preReadCount = (XxlJobAdminConfig.getAdminConfig().getTriggerPoolFastMax() + XxlJobAdminConfig.getAdminConfig().getTriggerPoolSlowMax()) * 20;
 
+                String lockSQL = null;
+
                 while (!scheduleThreadToStop) {
 
                     // Scan Job
@@ -70,7 +73,17 @@ public class JobScheduleHelper {
                         connAutoCommit = conn.getAutoCommit();
                         conn.setAutoCommit(false);
 
-                        preparedStatement = conn.prepareStatement(  "select * from xxl_job_lock where lock_name = 'schedule_lock' for update" );
+                        if (lockSQL == null) {
+                            DatabaseMetaData metaData = conn.getMetaData();
+                            String databaseProductName = metaData.getDatabaseProductName();
+                            if ("Microsoft SQL Server".equals(databaseProductName)) {
+                                lockSQL = "select * from xxl_job_lock WITH (UPDLOCK) where lock_name = 'schedule_lock'";
+                            } else {
+                                lockSQL = "select * from xxl_job_lock where lock_name = 'schedule_lock' for update";
+                            }
+                        }
+
+                        preparedStatement = conn.prepareStatement(  lockSQL );
                         preparedStatement.execute();
 
                         // tx start

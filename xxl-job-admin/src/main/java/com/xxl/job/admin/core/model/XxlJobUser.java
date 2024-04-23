@@ -2,22 +2,29 @@ package com.xxl.job.admin.core.model;
 
 import org.springframework.util.StringUtils;
 
+import javax.persistence.*;
+
 /**
  * @author xuxueli 2019-05-04 16:43:12
  */
+@Entity
+@Table(indexes = {
+		@Index(name = "i_username", columnList = "username", unique = true)
+})
 public class XxlJobUser {
-	
-	private int id;
+	@Id
+	@GeneratedValue
+	private Integer id;
 	private String username;		// 账号
 	private String password;		// 密码
-	private int role;				// 角色：0-普通用户、1-管理员
+	private Integer role;				// 角色：0-普通用户、1-管理员
 	private String permission;	// 权限：执行器ID列表，多个逗号分割
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -37,11 +44,11 @@ public class XxlJobUser {
 		this.password = password;
 	}
 
-	public int getRole() {
+	public Integer getRole() {
 		return role;
 	}
 
-	public void setRole(int role) {
+	public void setRole(Integer role) {
 		this.role = role;
 	}
 
@@ -54,7 +61,7 @@ public class XxlJobUser {
 	}
 
 	// plugin
-	public boolean validPermission(int jobGroup){
+	public boolean validPermission(Integer jobGroup){
 		if (this.role == 1) {
 			return true;
 		} else {

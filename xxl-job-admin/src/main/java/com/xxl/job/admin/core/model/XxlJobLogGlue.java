@@ -1,34 +1,38 @@
 package com.xxl.job.admin.core.model;
 
+import javax.persistence.*;
 import java.util.Date;
 
 /**
  * xxl-job log for glue, used to track job code process
  * @author xuxueli 2016-5-19 17:57:46
  */
+@Entity(name = "xxl_job_logglue")
 public class XxlJobLogGlue {
-	
-	private int id;
-	private int jobId;				// 任务主键ID
+	@Id
+	@GeneratedValue
+	private Integer id;
+	private Integer jobId;				// 任务主键ID
 	private String glueType;		// GLUE类型	#com.xxl.job.core.glue.GlueTypeEnum
+	@Lob
 	private String glueSource;
 	private String glueRemark;
 	private Date addTime;
 	private Date updateTime;
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	public int getJobId() {
+	public Integer getJobId() {
 		return jobId;
 	}
 
-	public void setJobId(int jobId) {
+	public void setJobId(Integer jobId) {
 		this.jobId = jobId;
 	}
 

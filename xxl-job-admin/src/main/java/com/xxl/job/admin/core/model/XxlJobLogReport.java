@@ -1,22 +1,28 @@
 package com.xxl.job.admin.core.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.Date;
 
+@Entity
 public class XxlJobLogReport {
-
-    private int id;
+    @Id
+    @GeneratedValue
+    private Integer id;
 
     private Date triggerDay;
 
-    private int runningCount;
-    private int sucCount;
-    private int failCount;
+    private Integer runningCount;
+    private Integer sucCount;
+    private Integer failCount;
+    private Date updateTime;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -28,27 +34,35 @@ public class XxlJobLogReport {
         this.triggerDay = triggerDay;
     }
 
-    public int getRunningCount() {
+    public Integer getRunningCount() {
         return runningCount;
     }
 
-    public void setRunningCount(int runningCount) {
+    public void setRunningCount(Integer runningCount) {
         this.runningCount = runningCount;
     }
 
-    public int getSucCount() {
+    public Integer getSucCount() {
         return sucCount;
     }
 
-    public void setSucCount(int sucCount) {
+    public void setSucCount(Integer sucCount) {
         this.sucCount = sucCount;
     }
 
-    public int getFailCount() {
+    public Integer getFailCount() {
         return failCount;
     }
 
-    public void setFailCount(int failCount) {
+    public void setFailCount(Integer failCount) {
         this.failCount = failCount;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 }

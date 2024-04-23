@@ -1,60 +1,69 @@
 package com.xxl.job.admin.core.model;
 
+import javax.persistence.*;
 import java.util.Date;
 
 /**
  * xxl-job log, used to track trigger process
  * @author xuxueli  2015-12-19 23:19:09
  */
+@Entity
+@Table(indexes = {
+		@Index(name = "I_trigger_time", columnList = "triggerTime"),
+		@Index(name = "I_handle_code", columnList = "handleCode")
+})
 public class XxlJobLog {
-	
-	private long id;
+	@Id
+	@GeneratedValue
+	private Long id;
 	
 	// job info
-	private int jobGroup;
-	private int jobId;
+	private Integer jobGroup;
+	private Integer jobId;
 
 	// execute info
 	private String executorAddress;
 	private String executorHandler;
 	private String executorParam;
 	private String executorShardingParam;
-	private int executorFailRetryCount;
+	private Integer executorFailRetryCount;
 	
 	// trigger info
 	private Date triggerTime;
-	private int triggerCode;
+	private Integer triggerCode;
+	@Lob
 	private String triggerMsg;
 	
 	// handle info
 	private Date handleTime;
-	private int handleCode;
+	private Integer handleCode;
+	@Lob
 	private String handleMsg;
 
 	// alarm info
-	private int alarmStatus;
+	private Integer alarmStatus;
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public int getJobGroup() {
+	public Integer getJobGroup() {
 		return jobGroup;
 	}
 
-	public void setJobGroup(int jobGroup) {
+	public void setJobGroup(Integer jobGroup) {
 		this.jobGroup = jobGroup;
 	}
 
-	public int getJobId() {
+	public Integer getJobId() {
 		return jobId;
 	}
 
-	public void setJobId(int jobId) {
+	public void setJobId(Integer jobId) {
 		this.jobId = jobId;
 	}
 
@@ -90,11 +99,11 @@ public class XxlJobLog {
 		this.executorShardingParam = executorShardingParam;
 	}
 
-	public int getExecutorFailRetryCount() {
+	public Integer getExecutorFailRetryCount() {
 		return executorFailRetryCount;
 	}
 
-	public void setExecutorFailRetryCount(int executorFailRetryCount) {
+	public void setExecutorFailRetryCount(Integer executorFailRetryCount) {
 		this.executorFailRetryCount = executorFailRetryCount;
 	}
 
@@ -106,11 +115,11 @@ public class XxlJobLog {
 		this.triggerTime = triggerTime;
 	}
 
-	public int getTriggerCode() {
+	public Integer getTriggerCode() {
 		return triggerCode;
 	}
 
-	public void setTriggerCode(int triggerCode) {
+	public void setTriggerCode(Integer triggerCode) {
 		this.triggerCode = triggerCode;
 	}
 
@@ -130,11 +139,11 @@ public class XxlJobLog {
 		this.handleTime = handleTime;
 	}
 
-	public int getHandleCode() {
+	public Integer getHandleCode() {
 		return handleCode;
 	}
 
-	public void setHandleCode(int handleCode) {
+	public void setHandleCode(Integer handleCode) {
 		this.handleCode = handleCode;
 	}
 
@@ -146,12 +155,11 @@ public class XxlJobLog {
 		this.handleMsg = handleMsg;
 	}
 
-	public int getAlarmStatus() {
+	public Integer getAlarmStatus() {
 		return alarmStatus;
 	}
 
-	public void setAlarmStatus(int alarmStatus) {
+	public void setAlarmStatus(Integer alarmStatus) {
 		this.alarmStatus = alarmStatus;
 	}
-
 }

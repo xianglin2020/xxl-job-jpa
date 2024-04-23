@@ -1,5 +1,6 @@
 package com.xxl.job.admin.core.model;
 
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -7,11 +8,13 @@ import java.util.Date;
  *
  * @author xuxueli  2016-1-12 18:25:49
  */
+@Entity
 public class XxlJobInfo {
+	@Id
+	@GeneratedValue
+	private Integer id;				// 主键ID
 	
-	private int id;				// 主键ID
-	
-	private int jobGroup;		// 执行器主键ID
+	private Integer jobGroup;		// 执行器主键ID
 	private String jobDesc;
 	
 	private Date addTime;
@@ -28,34 +31,36 @@ public class XxlJobInfo {
 	private String executorHandler;		    // 执行器，任务Handler名称
 	private String executorParam;		    // 执行器，任务参数
 	private String executorBlockStrategy;	// 阻塞处理策略
-	private int executorTimeout;     		// 任务执行超时时间，单位秒
-	private int executorFailRetryCount;		// 失败重试次数
+	private Integer executorTimeout;     		// 任务执行超时时间，单位秒
+	private Integer executorFailRetryCount;		// 失败重试次数
 	
 	private String glueType;		// GLUE类型	#com.xxl.job.core.glue.GlueTypeEnum
+	@Lob
 	private String glueSource;		// GLUE源代码
 	private String glueRemark;		// GLUE备注
 	private Date glueUpdatetime;	// GLUE更新时间
 
+	@Column(name = "child_jobid")
 	private String childJobId;		// 子任务ID，多个逗号分隔
 
-	private int triggerStatus;		// 调度状态：0-停止，1-运行
-	private long triggerLastTime;	// 上次调度时间
-	private long triggerNextTime;	// 下次调度时间
+	private Integer triggerStatus;		// 调度状态：0-停止，1-运行
+	private Long triggerLastTime;	// 上次调度时间
+	private Long triggerNextTime;	// 下次调度时间
 
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	public int getJobGroup() {
+	public Integer getJobGroup() {
 		return jobGroup;
 	}
 
-	public void setJobGroup(int jobGroup) {
+	public void setJobGroup(Integer jobGroup) {
 		this.jobGroup = jobGroup;
 	}
 
@@ -155,19 +160,19 @@ public class XxlJobInfo {
 		this.executorBlockStrategy = executorBlockStrategy;
 	}
 
-	public int getExecutorTimeout() {
+	public Integer getExecutorTimeout() {
 		return executorTimeout;
 	}
 
-	public void setExecutorTimeout(int executorTimeout) {
+	public void setExecutorTimeout(Integer executorTimeout) {
 		this.executorTimeout = executorTimeout;
 	}
 
-	public int getExecutorFailRetryCount() {
+	public Integer getExecutorFailRetryCount() {
 		return executorFailRetryCount;
 	}
 
-	public void setExecutorFailRetryCount(int executorFailRetryCount) {
+	public void setExecutorFailRetryCount(Integer executorFailRetryCount) {
 		this.executorFailRetryCount = executorFailRetryCount;
 	}
 
@@ -211,15 +216,15 @@ public class XxlJobInfo {
 		this.childJobId = childJobId;
 	}
 
-	public int getTriggerStatus() {
+	public Integer getTriggerStatus() {
 		return triggerStatus;
 	}
 
-	public void setTriggerStatus(int triggerStatus) {
+	public void setTriggerStatus(Integer triggerStatus) {
 		this.triggerStatus = triggerStatus;
 	}
 
-	public long getTriggerLastTime() {
+	public Long getTriggerLastTime() {
 		return triggerLastTime;
 	}
 
@@ -227,7 +232,7 @@ public class XxlJobInfo {
 		this.triggerLastTime = triggerLastTime;
 	}
 
-	public long getTriggerNextTime() {
+	public Long getTriggerNextTime() {
 		return triggerNextTime;
 	}
 

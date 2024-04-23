@@ -1,23 +1,29 @@
 package com.xxl.job.admin.core.model;
 
+import javax.persistence.*;
 import java.util.Date;
 
 /**
  * Created by xuxueli on 16/9/30.
  */
+@Entity
+@Table(indexes = {
+        @Index(name = "i_g_k_v", columnList = "registryGroup, registryKey, registryValue")
+})
 public class XxlJobRegistry {
-
-    private int id;
+    @Id
+    @GeneratedValue
+    private Integer id;
     private String registryGroup;
     private String registryKey;
     private String registryValue;
     private Date updateTime;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
